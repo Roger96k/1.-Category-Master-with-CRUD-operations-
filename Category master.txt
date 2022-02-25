@@ -20,75 +20,48 @@ namespace Nimaptest
         {
             InitializeComponent();
         }
-        
-      public void showdata()//Showdata Method
-        {
-          
-          
-            con.Open();
-            SqlDataAdapter dpt =  new SqlDataAdapter("select * from [Product],[Category]", con);
-            DataTable dt = new DataTable();
-            dpt.Fill(dt);
-            dataGridView1.DataSource = dt;
-            con.Close();
-         
+ 
 
-        }
-     //Insert Btn Event
-        private void intbtn_Click(object sender, EventArgs e)
+
+
+       private void cinbtn_Click(object sender, EventArgs e)
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand(@"INSERT INTO product (Product_Id,Product_name,CAtegory_Id) VALUES ('"+pidtext.Text+"','"+pntext.Text+"','"+cidtext.Text+"')", con);
+            SqlCommand cmd = new SqlCommand(@"INSERT INTO Category (Category_Id,Category_name) VALUES ('" + ccidtxt.Text + "','" + ccnametxt.Text + "')", con);
             cmd.ExecuteNonQuery();
             MessageBox.Show("Data Insert");
             con.Close();
-            showdata();
-            clear();
-
+            sd();
+            clr();
         }
 
-//Update Btn Event
-
-        private void upbtn_Click(object sender, EventArgs e)
+        private void cubtn_Click(object sender, EventArgs e)
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand(@"UPDATE product SET Product_name='"+pntext.Text+"', category_Id='"+cidtext.Text+"' WHERE Product_Id='"+pidtext.Text+"'",con);
+            SqlCommand cmd = new SqlCommand(@"UPDATE Category SET Category_name = '" + ccnametxt.Text + "' WHERE Category_Id = '" + ccidtxt.Text + "' ", con);
             cmd.ExecuteNonQuery();
             MessageBox.Show("Data Updated");
             con.Close();
-            showdata();
-            clear();
+            sd();
+            clr();
 
         }
-           
-       //Delete Btn Event
-        private void delbtn_Click(object sender, EventArgs e)
+
+        private void cdbtn_Click(object sender, EventArgs e)
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("DELETE from product WHERE Product_Id ='" + pidtext.Text + "'", con);
+            SqlCommand cmd = new SqlCommand(@"DELETE FROM Category WHERE Category_Id='"+ccidtxt.Text+"'", con);
             cmd.ExecuteNonQuery();
-            MessageBox.Show("Data Delete");
+            MessageBox.Show("Category Deleted");
             con.Close();
-            showdata();
-            clear();
+            sd();
+            clr();
         }
 
-      //Clear Btn Event     
-      private void clrbtn_Click(object sender, EventArgs e)
+        private void ccbtn_Click(object sender, EventArgs e)
         {
-            pidtext.Clear();
-            pntext.Clear();
-            cidtext.Clear();
+            ccidtxt.Clear();
+            ccnametxt.Clear();
         }
-
-       public void clear()//Clear method
-        {
-            pidtext.Clear();
-            pntext.Clear();
-            cidtext.Clear();
-        }
-
-
-
-
+    }
 }
